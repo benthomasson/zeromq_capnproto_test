@@ -1,5 +1,18 @@
 @0xadd0fc6f3dae89b8;
 
+struct LineCoverage {
+    lineno @0 :UInt32;
+}
+
+struct FileCoverage {
+    path @0 :Text;
+    lines @1 :List(LineCoverage);
+}
+
+struct Coverage {
+    files @0 :List(FileCoverage);
+}
+
 struct CPU {
   cpu @0 :Float32;
 }
@@ -21,4 +34,5 @@ struct Measurements {
   timestamp @1 :Text;
   cpu @2 :CPU;
   memory @3 :Memory;
+  coverage @4 :Coverage;
 }

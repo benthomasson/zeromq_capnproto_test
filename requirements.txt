@@ -2,3 +2,4 @@ pyzmq
 pycapnp
 ipython
 psutil
+coverage
