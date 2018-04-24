@@ -7,6 +7,7 @@ import measurements_capnp
 import psutil
 import zmq
 import time
+import datetime
 from itertools import count
 
 context = zmq.Context()
@@ -16,10 +17,10 @@ socket.bind("tcp://*:5559")
 counter = count(0)
 
 while True:
+    timestamp = datetime.datetime.utcnow().isoformat()
     sample = measurements_capnp.Measurements.new_message()
-    sample_id = next(counter)
-    sample.cpu.id = sample_id
-    sample.memory.id = sample_id
+    sample.timestamp = timestamp
+    sample.id = next(counter)
     sample.cpu.cpu = psutil.cpu_percent()
     mem = psutil.virtual_memory()
     sample.memory.total = mem.total
@@ -31,4 +32,4 @@ while True:
     sample.memory.inactive = mem.inactive
     sample.memory.wired = mem.wired
     socket.send(sample.to_bytes())
-    time.sleep(1)
+    time.sleep(0.1)
