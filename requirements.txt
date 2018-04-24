@@ -1,3 +1,4 @@
 pyzmq
 pycapnp
 ipython
+psutil
