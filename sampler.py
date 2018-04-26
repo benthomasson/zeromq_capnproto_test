@@ -43,8 +43,8 @@ while True:
         lines = data.lines(cf)
         for cl, sl in zip(lines, sf.init('lines', len(lines))):
             sl.lineno = cl
-    socket.send(sample.to_bytes())
+    socket.send_multipart(["Measurements", sample.to_bytes()])
     cov = coverage.Coverage()
     cov.start()
     a_lib.woo()
-    time.sleep(1)
+    time.sleep(0.1)

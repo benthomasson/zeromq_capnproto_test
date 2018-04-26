@@ -14,6 +14,7 @@ socket.setsockopt(zmq.SUBSCRIBE, b'')
 
 #  Do 10 requests, waiting each time for a response
 for request in range(1,11):
-    message = socket.recv()
-    samples = measurements_capnp.Measurements.read_multiple_bytes(message)
-    print("Received reply %s [%s]" % (request, samples.next()))
+    message = socket.recv_multipart()
+    if message[0] == "Measurements":
+        samples = measurements_capnp.Measurements.read_multiple_bytes(message[1])
+        print("Received reply %s [%s]" % (request, samples.next()))
