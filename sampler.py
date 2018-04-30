@@ -36,7 +36,6 @@ while True:
     sample.memory.free = mem.free
     sample.memory.active = mem.active
     sample.memory.inactive = mem.inactive
-    sample.memory.wired = mem.wired
     files = data.measured_files()
     for cf, sf in zip(files, sample.coverage.init('files', len(files))):
         sf.path = cf
