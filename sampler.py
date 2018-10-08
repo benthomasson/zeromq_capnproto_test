@@ -6,13 +6,14 @@ cov = coverage.Coverage()
 cov.start()
 
 import capnp # noqa
-import measurements_capnp
-import psutil
-import zmq
-import time
-import datetime
-from itertools import count
-import a_lib
+import measurements_capnp # noqa
+import psutil # noqa
+import zmq # noqa
+import time # noqa
+import datetime # noqa
+from itertools import count # noqa
+import a_lib # noqa
+import gc # noqa
 
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
@@ -20,7 +21,9 @@ socket.bind("tcp://*:5559")
 
 counter = count(0)
 
-while True:
+
+def sample():
+    global cov
     timestamp = datetime.datetime.utcnow().isoformat()
     cov.stop
     data = cov.get_data()
@@ -46,4 +49,9 @@ while True:
     cov = coverage.Coverage()
     cov.start()
     a_lib.woo()
+
+
+while True:
+    sample()
     time.sleep(0.1)
+    gc.collect()
