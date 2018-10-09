@@ -45,7 +45,7 @@ def sample():
         lines = data.lines(cf)
         for cl, sl in zip(lines, sf.init('lines', len(lines))):
             sl.lineno = cl
-    socket.send_multipart(["Measurements", sample.to_bytes()])
+    socket.send_multipart([b"Measurements", sample.to_bytes()])
     cov = coverage.Coverage()
     cov.start()
     a_lib.woo()

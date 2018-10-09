@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 import capnp # noqa
@@ -29,7 +30,7 @@ def sample():
     sample.memory.free = mem.free
     sample.memory.active = mem.active
     sample.memory.inactive = mem.inactive
-    socket.send_multipart(["Measurements", sample.to_bytes()])
+    socket.send_multipart([b"Measurements", sample.to_bytes()])
 
 
 while True:
