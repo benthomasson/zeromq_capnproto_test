@@ -3,3 +3,4 @@ pycapnp
 ipython
 psutil
 coverage
+docopt
